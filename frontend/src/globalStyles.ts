@@ -1,6 +1,4 @@
-import { cache } from 'lit/directives/cache.js'
-import { html } from 'lit/static-html.js'
+import { unsafeCSS } from 'lit'
+import globalCSS from './index.css?inline'
 
-export const globalStyleLink = cache(
-  html`<link rel="stylesheet" href="./src/index.css" />`,
-)
+export const globalStyles = unsafeCSS(globalCSS)

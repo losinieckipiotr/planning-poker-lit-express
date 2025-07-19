@@ -1,7 +1,7 @@
 import { LitElement, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import litLogo from './assets/lit.svg'
-import { globalStyleLink } from './globalStyles'
+import { globalStyles } from './globalStyles'
 import viteLogo from '/vite.svg'
 
 declare global {
@@ -18,6 +18,8 @@ declare global {
  */
 @customElement('my-element')
 export class MyElement extends LitElement {
+  static styles = globalStyles
+
   /**
    * Copy for the read the docs hint.
    */
@@ -38,7 +40,6 @@ export class MyElement extends LitElement {
     const { count, docsHint } = this
 
     return html`
-      ${globalStyleLink}
       <div class="flex justify-around">
         <a
           class="block p-10 transition duration-300 hover:drop-shadow-[0_0px_2rem_#646cffaa]"
