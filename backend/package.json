@@ -1,0 +1,25 @@
+{
+  "name": "planning-poker-lit-backend",
+  "version": "0.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.ts",
+  "scripts": {
+    "start": "node --experimental-strip-types index.ts",
+    "tsc": "npx tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.0.15",
+    "@types/sqlite3": "^3.1.11",
+    "prettier": "3.6.2",
+    "typescript": "5.8.3"
+  }
+}
