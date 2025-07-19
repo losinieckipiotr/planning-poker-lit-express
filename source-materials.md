@@ -22,3 +22,4 @@
 - [Drizzle ORM SQLite](https://orm.drizzle.team/docs/get-started/sqlite-new)
 - [libSQL](https://docs.turso.tech/sdk/ts/quickstart)
 - [libSQL examples](https://github.com/tursodatabase/libsql-client-ts/blob/main/packages/libsql-client/examples/example.js)
+- [better-sqlite3](https://github.com/WiseLibs/better-sqlite3)
