@@ -19,8 +19,6 @@ const config = {
   bracketSameLine: false,
   arrowParens: "always",
   rangeStart: 0,
-  // parser: undefined,
-  // filepath: undefined,
   rangeEnd: Infinity,
   requirePragma: false,
   insertPragma: false,
