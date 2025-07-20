@@ -2,15 +2,9 @@ import 'dotenv/config'
 import express from 'express'
 import logger from 'morgan'
 import path from 'node:path'
-import { getUserRouter } from './api/getUser.api.ts'
+import { getUserRouter } from './api/get-user.api.ts'
 
-const NODE_ENV = process.env.NODE_ENV
 const PORT = process.env.PORT
-
-console.log({
-  NODE_ENV,
-  PORT,
-})
 
 var app = express()
 app.set('port', PORT)

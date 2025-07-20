@@ -1,1 +1,8 @@
-GET http://localhost:3000/api/getUser HTTP/1.1
+POST http://localhost:3000/api/get-user HTTP/1.1
+content-type: application/json
+
+{
+    "data": {
+      "id": 69
+    }
+}
