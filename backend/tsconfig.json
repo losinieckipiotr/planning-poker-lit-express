@@ -7,14 +7,12 @@
     "lib": ["ESNext"],
     "skipLibCheck": true,
 
-    /* Bundler mode */
     "moduleResolution": "nodenext",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "noEmit": true,
 
-    /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -22,5 +20,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["index.ts"]
+  "include": ["src/index.ts"]
 }

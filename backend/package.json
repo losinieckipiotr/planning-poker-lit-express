@@ -5,24 +5,27 @@
   "license": "ISC",
   "author": "",
   "type": "module",
-  "main": "index.ts",
   "scripts": {
-    "start": "node --experimental-strip-types index.ts",
+    "start": "node --experimental-strip-types src/index.ts",
+    "watch": "node --watch --experimental-strip-types src/index.ts",
     "drizzle:push": "drizzle-kit push",
     "tsc": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "@libsql/client": "^0.15.10",
+    "@types/morgan": "^1.9.10",
     "dotenv": "^17.2.0",
     "drizzle-orm": "^0.44.3",
     "express": "^5.1.0",
+    "morgan": "^1.10.1",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
     "@types/node": "^24.0.15",
     "drizzle-kit": "^0.31.4",
+    "nodemon": "^3.1.10",
     "prettier": "3.6.2",
     "typescript": "5.8.3"
   }
