@@ -1,45 +1,40 @@
-import sql from 'sqlite3'
+import 'dotenv/config'
+import { eq } from 'drizzle-orm'
+import { drizzle } from 'drizzle-orm/libsql'
+import { usersTable } from './src/db/schema.ts'
 
-// TODO: drizzle ORM
+const db = drizzle(process.env.DB_FILE_NAME!)
 
-const sqlite3 = sql.verbose()
+async function main() {
+  const user: typeof usersTable.$inferInsert = {
+    name: 'John',
+    age: 30,
+    email: 'john11@example.com',
+  }
 
-const db = new sqlite3.Database('users.db')
+  await db.insert(usersTable).values(user)
+  console.log('New user created!')
 
-db.serialize(() => {
-  db.run(`
-  CREATE TABLE IF NOT EXISTS clients(
-    id INTEGER PRIMARY KEY,
-    cardNumber TEXT UNIQUE,
-    pin TEXT,
-    balance INTEGER
-  )
-`)
+  let users = await db.select().from(usersTable)
+  console.log('Getting all users from the database: ', users)
 
-  db.run(
-    `
-  INSERT INTO clients(cardNumber, pin, balance)
-  VALUES($cardNumber, $pin, $balance)
-`,
-    {
-      $cardNumber: '700',
-      $pin: '1110',
-      $balance: 2500,
-    },
-  )
+  await db
+    .update(usersTable)
+    .set({
+      age: 31,
+    })
+    .where(eq(usersTable.email, user.email))
 
-  db.close()
-})
+  console.log('User info updated!')
 
-// import express from "express"
+  users = await db.select().from(usersTable)
+  console.log('Getting all users from the database: ', users)
 
-// const app = express()
-// const port = 3000
+  await db.delete(usersTable).where(eq(usersTable.name, 'John'))
 
-// app.get('/', (_req, res) => {
-//   res.send('Hello World!')
-// })
+  console.log('Users deleted!')
 
-// app.listen(port, () => {
-//   console.log(`Example app listening on port ${port}`)
-// })
+  users = await db.select().from(usersTable)
+  console.log('Getting all users from the database: ', users)
+}
+main()

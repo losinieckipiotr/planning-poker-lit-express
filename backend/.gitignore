@@ -23,3 +23,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# TODO: remove when http sever will be ok
+my-app
+
+# Database
+*.db
