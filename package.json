@@ -10,13 +10,13 @@
     "frontend:tsc": "tsc",
     "frontend:build": "vite build",
     "frontend:watch": "vite dev",
+    "server:start": "node --experimental-strip-types src/backend/index.ts",
+    "server:watch": "node --watch --experimental-strip-types src/backend/index.ts",
+    "server:tsc": "tsc -p src/backend/tsconfig.json",
+    "server:test": "node --experimental-strip-types src/backend/client.ts",
+    "server:test:drizzle": "node --experimental-strip-types src/backend/drizzle-test.ts",
     "prettier": "prettier ./src --write",
-    "server:start": "node --experimental-strip-types backend/index.ts",
-    "server:watch": "node --watch --experimental-strip-types backend/index.ts",
-    "drizzle:push": "drizzle-kit push",
-    "server:tsc": "tsc -p backend/tsconfig.json",
-    "server:test": "node --experimental-strip-types backend/client.ts",
-    "server:test:drizzle": "node --experimental-strip-types backend/drizzle-test.ts"
+    "drizzle:push": "drizzle-kit push"
   },
   "dependencies": {
     "compression": "^1.8.1",

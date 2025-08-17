@@ -3,7 +3,7 @@ import type { GetUserReq, GetUserRsp } from './api/get-user.api.ts'
 async function main() {
   const params: GetUserReq = {
     data: {
-      id: 7,
+      id: 5,
     },
   }
   const rsp = await fetch('http://localhost:3000/api/get-user', {

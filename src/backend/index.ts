@@ -16,7 +16,9 @@ app.use(compression())
 
 app.use(getUserRouter)
 
-app.use(express.static(path.join(path.dirname('../'), 'dist')))
+const dist_path = path.join(path.dirname('../'), 'dist')
+
+app.use(express.static(dist_path))
 
 app.listen(PORT, () => {
   console.log(`backend listening on port ${PORT}`)
