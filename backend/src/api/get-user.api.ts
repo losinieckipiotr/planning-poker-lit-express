@@ -1,36 +1,42 @@
+import { drizzle } from 'drizzle-orm/libsql'
 import express from 'express'
 import * as z from 'zod'
+import { usersSelectSchema, usersTable } from '../db/schema.ts'
 
 export const getUserRouter = express.Router()
 
-getUserRouter.post('/api/get-user', (req, res) => {
+getUserRouter.post('/api/get-user', async (req, res) => {
   try {
     const json = getUserReq.parse(req.body)
-    // TODO: read from database
-    const user = getUser(json.data.id)
 
-    res.json(user)
+    const { id } = json.data
+
+    const user = (await db.select().from(usersTable)).find(
+      (user) => user.id === id,
+    )
+
+    if (!user) {
+      throw new Error(`not found user with id: ${id}`)
+    }
+
+    const rsp: GetUserRspOk = {
+      status: 'ok',
+      data: {
+        user,
+      },
+    }
+
+    res.json(rsp)
   } catch (error: any) {
-    res.status(400).send(JSON.stringify(errorRsp(error)))
+    const response: GetUserRspErr = {
+      status: 'errror',
+      error: error instanceof Error ? error.message : error.toString(),
+    }
+    res.status(400).send(JSON.stringify(response))
   }
 })
 
-function getUser(id: number): GetUserRspOk {
-  return {
-    status: 'ok',
-    id: id,
-    name: 'John Doe',
-    email: 'john@example.com',
-  }
-}
-
-// TODO: error response could be the same for all API
-function errorRsp(error: any): GetUserRspErr {
-  return {
-    status: 'errror',
-    error: error instanceof Error ? error.message : error.toString(),
-  }
-}
+const db = drizzle(process.env.DB_FILE_NAME!)
 
 const getUserReq = z.object({
   data: z.object({
@@ -41,17 +47,22 @@ export type GetUserReq = z.infer<typeof getUserReq>
 
 const getUserRspOk = z.object({
   status: z.literal('ok'),
-  id: z.number(),
-  name: z.string(),
-  email: z.email(),
+  data: z.object({
+    user: usersSelectSchema,
+  }),
 })
+
 export type GetUserRspOk = z.infer<typeof getUserRspOk>
 
 const getUserRspErr = z.object({
   status: z.literal('errror'),
   error: z.string(),
 })
+
+// TODO: error response could be the same for all API
 export type GetUserRspErr = z.infer<typeof getUserRspErr>
 
+// TODO: global helper function?
 const getUserRsp = z.discriminatedUnion('status', [getUserRspOk, getUserRspErr])
+
 export type GetUserRsp = z.infer<typeof getUserRsp>

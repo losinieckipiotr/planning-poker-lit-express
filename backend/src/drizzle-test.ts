@@ -3,6 +3,8 @@ import { eq } from 'drizzle-orm'
 import { drizzle } from 'drizzle-orm/libsql'
 import { usersTable } from './db/schema.ts'
 
+console.log('drizzle-test')
+
 const db = drizzle(process.env.DB_FILE_NAME!)
 
 async function main() {
@@ -15,7 +17,12 @@ async function main() {
   await db.insert(usersTable).values(user)
   console.log('New user created!')
 
+  const query = db.select().from(usersTable).toSQL()
+  console.log(query)
+  const p = db.select().from(usersTable).prepare()
+
   let users = await db.select().from(usersTable)
+
   console.log('Getting all users from the database: ', users)
 
   await db
@@ -37,4 +44,5 @@ async function main() {
   users = await db.select().from(usersTable)
   console.log('Getting all users from the database: ', users)
 }
+
 main()

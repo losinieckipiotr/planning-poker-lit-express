@@ -10,13 +10,15 @@
     "watch": "node --watch --experimental-strip-types src/index.ts",
     "drizzle:push": "drizzle-kit push",
     "tsc": "npx tsc",
-    "test": "node --experimental-strip-types src/client.ts"
+    "test": "node --experimental-strip-types src/client.ts",
+    "test:drizzle": "node --experimental-strip-types src/drizzle-test.ts"
   },
   "dependencies": {
     "@libsql/client": "^0.15.10",
     "@types/morgan": "^1.9.10",
     "dotenv": "^17.2.0",
     "drizzle-orm": "^0.44.3",
+    "drizzle-zod": "^0.8.3",
     "express": "^5.1.0",
     "morgan": "^1.10.1",
     "sqlite3": "^5.1.7",
