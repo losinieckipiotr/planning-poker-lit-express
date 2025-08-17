@@ -1,3 +1,4 @@
+import compression from 'compression'
 import 'dotenv/config'
 import express from 'express'
 import logger from 'morgan'
@@ -11,6 +12,7 @@ app.set('port', PORT)
 
 app.use(logger('dev'))
 app.use(express.json())
+app.use(compression())
 
 app.use(getUserRouter)
 
