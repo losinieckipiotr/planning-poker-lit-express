@@ -1,14 +1,15 @@
 {
-  "name": "planning-poker-lit-frontend",
+  "name": "planning-poker-lit-express",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "serve": "http-server ./dist/ -p 5173",
-    "preview": "vite preview",
-    "prettier": "npx prettier ./src --write"
+    "serve": "http-server ./dist/ -g -p 5173",
+    "preview": "vite preview --port 5173",
+    "prettier": "npx prettier ./src --write",
+    "gzip": "gzip ./dist/ -k -r"
   },
   "dependencies": {
     "lit": "^3.3.0"
