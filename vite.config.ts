@@ -3,6 +3,7 @@ import minifyHTML from 'rollup-plugin-minify-html-literals'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
+  root: 'src/frontend',
   server: {
     proxy: {
       '/api': 'http://localhost:3000',
