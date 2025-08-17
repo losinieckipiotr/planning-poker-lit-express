@@ -18,6 +18,9 @@ lerna-debug.log*
 *.sln
 *.sw?
 
+# Database
+*.db
+
 node_modules
 dist
 dist-ssr

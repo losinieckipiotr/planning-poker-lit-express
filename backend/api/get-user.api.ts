@@ -1,3 +1,4 @@
+import { eq } from 'drizzle-orm'
 import { drizzle } from 'drizzle-orm/libsql'
 import express from 'express'
 import * as z from 'zod'
@@ -8,12 +9,13 @@ export const getUserRouter = express.Router()
 getUserRouter.post('/api/get-user', async (req, res) => {
   try {
     const json = getUserReq.parse(req.body)
-
     const { id } = json.data
 
-    const user = (await db.select().from(usersTable)).find(
-      (user) => user.id === id,
-    )
+    const db = drizzle(process.env.DB_FILE_NAME!)
+    const [user] = await db
+      .select()
+      .from(usersTable)
+      .where(eq(usersTable.id, id))
 
     if (!user) {
       throw new Error(`not found user with id: ${id}`)
@@ -35,8 +37,6 @@ getUserRouter.post('/api/get-user', async (req, res) => {
     res.status(400).send(JSON.stringify(response))
   }
 })
-
-const db = drizzle(process.env.DB_FILE_NAME!)
 
 const getUserReq = z.object({
   data: z.object({

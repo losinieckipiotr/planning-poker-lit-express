@@ -1,9 +1,9 @@
-import type { GetUserReq, GetUserRsp } from './api/get-user.api'
+import type { GetUserReq, GetUserRsp } from './api/get-user.api.ts'
 
 async function main() {
   const params: GetUserReq = {
     data: {
-      id: 5,
+      id: 7,
     },
   }
   const rsp = await fetch('http://localhost:3000/api/get-user', {
@@ -14,7 +14,7 @@ async function main() {
     body: JSON.stringify(params),
   })
 
-  const json: GetUserRsp = await rsp.json()
+  const json = (await rsp.json()) as GetUserRsp
 
   if (json.status == 'ok') {
     console.log({

@@ -9,9 +9,22 @@
     "serve": "http-server ./dist/ -g -p 5173",
     "preview": "vite preview --port 5173",
     "prettier": "npx prettier ./src --write",
-    "gzip": "gzip ./dist/ -k -r"
+    "gzip": "gzip ./dist/ -k -r",
+    "server:start": "node --experimental-strip-types backend/index.ts",
+    "server:watch": "node --watch --experimental-strip-types backend/index.ts",
+    "drizzle:push": "drizzle-kit push",
+    "server:tsc": "npx tsc -- -p",
+    "server:test": "node --experimental-strip-types backend/client.ts",
+    "server:test:drizzle": "node --experimental-strip-types backend/drizzle-test.ts"
   },
   "dependencies": {
+    "dotenv": "^17.2.0",
+    "drizzle-orm": "^0.44.3",
+    "drizzle-zod": "^0.8.3",
+    "express": "^5.1.0",
+    "morgan": "^1.10.1",
+    "sqlite3": "^5.1.7",
+    "zod": "^4.0.5",
     "lit": "^3.3.0"
   },
   "devDependencies": {
@@ -21,6 +34,11 @@
     "rollup-plugin-minify-html-literals": "1.2.6",
     "tailwindcss": "4.1.11",
     "typescript": "5.8.3",
-    "vite": "7.0.4"
+    "vite": "7.0.4",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.0.15",
+    "drizzle-kit": "^0.31.4",
+    "@types/morgan": "^1.9.10",
+    "@libsql/client": "^0.15.10"
   }
 }
