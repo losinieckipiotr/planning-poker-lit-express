@@ -15,4 +15,8 @@ export default defineConfig({
     // @ts-expect-error Common.JS export does not work with types ?
     minifyHTML.default(),
   ],
+  build: {
+    outDir: '../../dist',
+    emptyOutDir: true,
+  },
 })
