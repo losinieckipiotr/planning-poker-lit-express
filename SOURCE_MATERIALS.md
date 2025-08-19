@@ -25,4 +25,7 @@
 - [libSQL examples](https://github.com/tursodatabase/libsql-client-ts/blob/main/packages/libsql-client/examples/example.js)
 - [better-sqlite3](https://github.com/WiseLibs/better-sqlite3)
 - [Migrations with Drizzle Kit](https://orm.drizzle.team/docs/kit-overview)
--
+- [Flowbite](https://flowbite.com/)
+- [daisyUI](https://daisyui.com/)
+- [heroicons](https://heroicons.com/)
+- [Website Stylekit](https://websitestylekit.com/)

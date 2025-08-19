@@ -4,10 +4,6 @@ import logger from 'morgan'
 import path from 'node:path'
 import { getUserRouter } from './api/get-user.api.ts'
 
-console.log({
-  NODE_ENV: process.env.NODE_ENV,
-})
-
 const DEV = process.env.NODE_ENV === 'development'
 
 const PORT = process.env.PORT

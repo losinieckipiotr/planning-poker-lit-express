@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Primary",
+    "hex": "#4B72D2"
+  },
+  {
+    "name": "Primary Dark",
+    "hex": "#315CC5"
+  },
+  {
+    "name": "Light 1",
+    "hex": "#FFFFFF"
+  },
+  {
+    "name": "Light 2",
+    "hex": "#F4F6FA"
+  },
+  {
+    "name": "Light 3",
+    "hex": "#DEE2ED"
+  },
+  {
+    "name": "Dark 1",
+    "hex": "#172036"
+  },
+  {
+    "name": "Dark 2",
+    "hex": "#2D3853"
+  },
+  {
+    "name": "Dark 3",
+    "hex": "#47526B"
+  }
+]
