@@ -4,15 +4,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   root: 'src/frontend',
   envDir: __dirname,
-  server: {
-    proxy: {
-      '/api': 'http://localhost:3000',
-    },
-    open: true,
-  },
+  server: { proxy: { '/api': 'http://localhost:3000' }, open: true },
   plugins: [tailwindcss()],
-  build: {
-    outDir: '../../dist',
-    emptyOutDir: true,
-  },
+  build: { outDir: '../../dist', emptyOutDir: true },
 })

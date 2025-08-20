@@ -1,6 +1,7 @@
+import { Router } from '@lit-labs/router'
 import { LitElement, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import type { GetUserReq, GetUserRsp } from '../backend/api/get-user.api'
+import type { GetUserReq, GetUserRsp } from '../../backend/api/get-user.api.js'
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -11,6 +12,19 @@ declare global {
 @customElement('pp-app')
 export class PpApp extends LitElement {
   // static styles = globalStyles
+
+  private router = new Router(this, [
+    { path: '/', render: () => this.renderHero() },
+    {
+      path: '/game',
+      enter: async () => {
+        await import('./PpGame.js')
+        return true
+      },
+      render: () => html`<pp-game></pp-game>`,
+    },
+    { path: '/*', render: () => html` <h1>TODO: 404 page</h1> ` },
+  ])
 
   protected createRenderRoot(): HTMLElement | DocumentFragment {
     return this
@@ -24,8 +38,47 @@ export class PpApp extends LitElement {
     }
   }
 
-  render() {
-    // TODO: pp-app-menu-button aria-expanded
+  renderHero() {
+    return html`
+      <div class="hero bg-base-200 p-4">
+        <div class="hero-content">
+          <div class="flex max-w-xl flex-col items-start">
+            <h1 class="text-5xl font-bold">
+              Scrum Poker application for agile teams
+            </h1>
+            <p class="py-6">Easy-to-use and fun estimations.</p>
+            <button class="btn btn-primary">Start game</button>
+          </div>
+        </div>
+      </div>
+    `
+  }
+
+  renderMain() {
+    return html`<main class="flex flex-1">${this.router.outlet()}</main>`
+  }
+
+  renderNavbar() {
+    const onLinkClick = (event: MouseEvent) => {
+      const { target } = event
+      ;(target as HTMLAnchorElement).blur()
+    }
+
+    const homeLink = html`
+      <a
+        href="/"
+        @click=${onLinkClick}
+        >Home</a
+      >
+    `
+    const gameLink = html`
+      <a
+        href="/game"
+        @click=${onLinkClick}
+        >Start game</a
+      >
+    `
+
     return html`
       <head>
         <nav class="navbar bg-base-100 shadow-sm">
@@ -55,16 +108,20 @@ export class PpApp extends LitElement {
                 class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
                 tabindex="0"
               >
-                <li><a>Home</a></li>
-                <li><a>Start game</a></li>
+                <li>${homeLink}</li>
+                <li>${gameLink}</li>
               </ul>
             </div>
-            <a class="btn btn-ghost text-xl">Planning Poker</a>
+            <a
+              href="/"
+              class="btn btn-ghost text-xl"
+              >Planning Poker</a
+            >
           </div>
           <div class="navbar-center hidden md:flex">
             <ul class="menu menu-horizontal px-1">
-              <li><a>Home</a></li>
-              <li><a>Start game</a></li>
+              <li>${homeLink}</li>
+              <li>${gameLink}</li>
             </ul>
           </div>
           <div class="navbar-end">
@@ -103,17 +160,11 @@ export class PpApp extends LitElement {
           </div>
         </nav>
       </head>
-      <main class="hero bg-base-200 flex-1">
-        <div class="hero-content">
-          <div class="flex max-w-xl flex-col items-start">
-            <h1 class="text-5xl font-bold">
-              Scrum Poker application for agile teams
-            </h1>
-            <p class="py-6">Easy-to-use and fun estimations.</p>
-            <button class="btn btn-primary">Start game</button>
-          </div>
-        </div>
-      </main>
+    `
+  }
+
+  renderFooter() {
+    return html`
       <footer
         class="footer sm:footer-horizontal bg-neutral text-neutral-content items-center justify-between gap-y-6 p-4"
       >
@@ -178,20 +229,18 @@ export class PpApp extends LitElement {
       </footer>
     `
   }
+
+  render() {
+    return [this.renderNavbar(), this.renderMain(), this.renderFooter()]
+  }
 }
 
 async function fetchUser(id: number) {
-  const params: GetUserReq = {
-    data: {
-      id,
-    },
-  }
+  const params: GetUserReq = { data: { id } }
 
   const rsp = await fetch('/api/get-user', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(params),
   })
 

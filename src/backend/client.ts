@@ -1,16 +1,10 @@
 import type { GetUserReq, GetUserRsp } from './api/get-user.api.ts'
 
 async function main() {
-  const params: GetUserReq = {
-    data: {
-      id: 5,
-    },
-  }
+  const params: GetUserReq = { data: { id: 5 } }
   const rsp = await fetch('http://localhost:3000/api/get-user', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(params),
   })
 

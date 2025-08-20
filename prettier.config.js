@@ -3,32 +3,32 @@
  * @type {import("prettier").Config}
  */
 const config = {
-  plugins: ["prettier-plugin-tailwindcss"],
+  plugins: ['prettier-plugin-tailwindcss'],
   experimentalTernaries: true,
-  experimentalOperatorPosition: "end",
+  experimentalOperatorPosition: 'end',
   printWidth: 80,
   tabWidth: 2,
   useTabs: false,
   semi: false,
   singleQuote: true,
-  quoteProps: "as-needed",
+  quoteProps: 'as-needed',
   jsxSingleQuote: false,
-  trailingComma: "all",
+  trailingComma: 'all',
   bracketSpacing: true,
-  objectWrap: "preserve",
+  objectWrap: 'collapse',
   bracketSameLine: false,
-  arrowParens: "always",
+  arrowParens: 'always',
   rangeStart: 0,
   rangeEnd: Infinity,
   requirePragma: false,
   insertPragma: false,
   checkIgnorePragma: false,
-  proseWrap: "preserve",
-  htmlWhitespaceSensitivity: "ignore",
+  proseWrap: 'preserve',
+  htmlWhitespaceSensitivity: 'css',
   vueIndentScriptAndStyle: false,
-  endOfLine: "lf",
-  embeddedLanguageFormatting: "auto",
-  singleAttributePerLine: true
-};
+  endOfLine: 'lf',
+  embeddedLanguageFormatting: 'auto',
+  singleAttributePerLine: true,
+}
 
-export default config;
+export default config

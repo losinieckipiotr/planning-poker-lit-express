@@ -21,12 +21,7 @@ getUserRouter.post('/api/get-user', async (req, res) => {
       throw new Error(`not found user with id: ${id}`)
     }
 
-    const rsp: GetUserRspOk = {
-      status: 'ok',
-      data: {
-        user,
-      },
-    }
+    const rsp: GetUserRspOk = { status: 'ok', data: { user } }
 
     res.json(rsp)
   } catch (error: any) {
@@ -38,18 +33,12 @@ getUserRouter.post('/api/get-user', async (req, res) => {
   }
 })
 
-const getUserReq = z.object({
-  data: z.object({
-    id: z.number(),
-  }),
-})
+const getUserReq = z.object({ data: z.object({ id: z.number() }) })
 export type GetUserReq = z.infer<typeof getUserReq>
 
 const getUserRspOk = z.object({
   status: z.literal('ok'),
-  data: z.object({
-    user: usersSelectSchema,
-  }),
+  data: z.object({ user: usersSelectSchema }),
 })
 
 export type GetUserRspOk = z.infer<typeof getUserRspOk>
