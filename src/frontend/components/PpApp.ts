@@ -16,14 +16,21 @@ export class PpApp extends LitElement {
   private router = new Router(this, [
     { path: '/', render: () => this.renderHero() },
     {
-      path: '/game',
+      path: '/newGame',
       enter: async () => {
-        await import('./PpGame.js')
+        await import('./PpNewGame.js')
         return true
       },
-      render: () => html`<pp-game></pp-game>`,
+      render: () => html`
+        <pp-new-game class="flex flex-1 flex-col"></pp-new-game>
+      `,
     },
-    { path: '/*', render: () => html` <h1>TODO: 404 page</h1> ` },
+    {
+      path: '/*',
+      render: () => html`
+        <h1>TODO: 404 page</h1>
+      `,
+    },
   ])
 
   protected createRenderRoot(): HTMLElement | DocumentFragment {
@@ -47,7 +54,12 @@ export class PpApp extends LitElement {
               Scrum Poker application for agile teams
             </h1>
             <p class="py-6">Easy-to-use and fun estimations.</p>
-            <button class="btn btn-primary">Start game</button>
+            <a
+              class="btn btn-primary"
+              href="/newGame"
+            >
+              Start game
+            </a>
           </div>
         </div>
       </div>
@@ -55,28 +67,32 @@ export class PpApp extends LitElement {
   }
 
   renderMain() {
-    return html`<main class="flex flex-1">${this.router.outlet()}</main>`
+    return html`
+      <main class="flex flex-1">${this.router.outlet()}</main>
+    `
   }
 
   renderNavbar() {
     const onLinkClick = (event: MouseEvent) => {
-      const { target } = event
-      ;(target as HTMLAnchorElement).blur()
+      const target = event.target as HTMLAnchorElement
+      target.blur()
     }
 
     const homeLink = html`
       <a
         href="/"
         @click=${onLinkClick}
-        >Home</a
       >
+        Home
+      </a>
     `
     const gameLink = html`
       <a
-        href="/game"
+        href="/newGame"
         @click=${onLinkClick}
-        >Start game</a
       >
+        Start game
+      </a>
     `
 
     return html`
@@ -115,8 +131,9 @@ export class PpApp extends LitElement {
             <a
               href="/"
               class="btn btn-ghost text-xl"
-              >Planning Poker</a
             >
+              Planning Poker
+            </a>
           </div>
           <div class="navbar-center hidden md:flex">
             <ul class="menu menu-horizontal px-1">

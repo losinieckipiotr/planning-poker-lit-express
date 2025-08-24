@@ -24,7 +24,7 @@ const config = {
   insertPragma: false,
   checkIgnorePragma: false,
   proseWrap: 'preserve',
-  htmlWhitespaceSensitivity: 'css',
+  htmlWhitespaceSensitivity: 'ignore',
   vueIndentScriptAndStyle: false,
   endOfLine: 'lf',
   embeddedLanguageFormatting: 'auto',
