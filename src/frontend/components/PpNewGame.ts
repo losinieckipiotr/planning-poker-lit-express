@@ -1,5 +1,6 @@
 import { html, LitElement } from 'lit'
 import { customElement } from 'lit/decorators.js'
+import { globalStyles } from '../globalStyles'
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -9,9 +10,11 @@ declare global {
 
 @customElement('pp-new-game')
 export class PpNewGame extends LitElement {
-  protected createRenderRoot(): HTMLElement | DocumentFragment {
-    return this
-  }
+  static styles = globalStyles
+
+  // protected createRenderRoot(): HTMLElement | DocumentFragment {
+  //   return this
+  // }
 
   protected render(): unknown {
     return html`
@@ -20,9 +23,14 @@ export class PpNewGame extends LitElement {
         <p>To start a new game just enter a game name and that's all.</p>
         <div class="divider"></div>
         <form
+          id="star-game-form"
           class="w-full"
           @submit=${(event: SubmitEvent) => {
-            console.log({ event })
+            const form = event.currentTarget as HTMLFormElement
+            const formData = Object.fromEntries(new FormData(form))
+            console.log({ formData })
+            // TODO: sent to backend
+
             event.preventDefault()
           }}
         >
@@ -30,6 +38,7 @@ export class PpNewGame extends LitElement {
             <label class="floating-label mb-4 w-full text-lg">
               <span>Enter a game name</span>
               <input
+                name="game-name"
                 type="text"
                 class="input input-xl w-full"
                 placeholder="Enter a game name"
@@ -43,7 +52,9 @@ export class PpNewGame extends LitElement {
                 <option value="Planning poker"></option>
               </datalist>
             </label>
-            <ul class="menu menu-horizontal rounded-box flex gap-2 p-0">
+            <ul
+              class="menu menu-horizontal rounded-box flex flex-row-reverse gap-2 p-0"
+            >
               <li>
                 <button
                   type="submit"
@@ -53,12 +64,12 @@ export class PpNewGame extends LitElement {
                 </button>
               </li>
               <li>
-                <button
-                  type="button"
+                <a
+                  href="/"
                   class="btn btn-neutral btn-lg"
                 >
                   Cancel
-                </button>
+                </a>
               </li>
             </ul>
           </div>

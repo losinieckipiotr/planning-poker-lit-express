@@ -20,7 +20,35 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    "plugins": [
+      {
+        "name": "ts-lit-plugin",
+        "strict": true,
+        "rules": {
+          "no-boolean-in-attribute-binding": "error",
+          "no-complex-attribute-binding": "error",
+          "no-expressionless-property-binding": "error",
+          "no-incompatible-property-type": "error",
+          "no-incompatible-type-binding": "error",
+          "no-invalid-attribute-name": "error",
+          "no-invalid-boolean-binding": "error",
+          "no-invalid-css": "error",
+          "no-invalid-directive-binding": "error",
+          "no-invalid-tag-name": "error",
+          "no-missing-import": "error",
+          "no-noncallable-event-binding": "error",
+          "no-nullable-attribute-binding": "error",
+          "no-unclosed-tag": "error",
+          "no-unknown-attribute": "error",
+          "no-unknown-event": "error",
+          "no-unknown-property": "error",
+          "no-unknown-slot": "error",
+          "no-unknown-tag-name": "error"
+        }
+      }
+    ]
   },
   "include": ["src/frontend"]
 }

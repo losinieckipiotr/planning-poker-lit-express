@@ -44,3 +44,8 @@
 } */
 
 /* TODO: https://github.com/tailwindlabs/tailwindcss/discussions/5258#discussioncomment-1979394 */
+
+/* TODO: maybe not needed?  */
+*:not(:defined) {
+  display: none;
+}

@@ -1,0 +1,159 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/frontend/globalStyles.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "globalStyles"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "globalStyles",
+          "declaration": {
+            "name": "globalStyles",
+            "module": "src/frontend/globalStyles.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/frontend/index.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/frontend/components/PpApp.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "This is a root web component for whole application.",
+          "name": "PpApp",
+          "cssParts": [
+            {
+              "description": "styles `<main>` element",
+              "name": "main"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "test",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "test"
+            },
+            {
+              "kind": "field",
+              "name": "router",
+              "type": {
+                "text": "Router"
+              },
+              "privacy": "private",
+              "default": "new Router(this, [ { path: '/', render: () => this.renderHero() }, { path: '/newGame', enter: async () => { await import('./PpNewGame.js') return true }, render: () => html` <pp-new-game class=\"flex flex-1 flex-col\"></pp-new-game> `, }, { path: '/*', render: () => html` <h1>TODO: 404 page</h1> `, }, ])"
+            },
+            {
+              "kind": "method",
+              "name": "onCreateRoom"
+            },
+            {
+              "kind": "method",
+              "name": "renderHero"
+            },
+            {
+              "kind": "method",
+              "name": "renderMain"
+            },
+            {
+              "kind": "method",
+              "name": "renderNavbar"
+            },
+            {
+              "kind": "method",
+              "name": "renderFooter"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "test",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "test"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "pp-app",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PpApp",
+          "declaration": {
+            "name": "PpApp",
+            "module": "src/frontend/components/PpApp.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "pp-app",
+          "declaration": {
+            "name": "PpApp",
+            "module": "src/frontend/components/PpApp.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/frontend/components/PpNewGame.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "PpNewGame",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "pp-new-game",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PpNewGame",
+          "declaration": {
+            "name": "PpNewGame",
+            "module": "src/frontend/components/PpNewGame.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "pp-new-game",
+          "declaration": {
+            "name": "PpNewGame",
+            "module": "src/frontend/components/PpNewGame.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

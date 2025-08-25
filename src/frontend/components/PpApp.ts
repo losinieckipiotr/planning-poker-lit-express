@@ -1,7 +1,37 @@
 import { Router } from '@lit-labs/router'
 import { LitElement, html } from 'lit'
-import { customElement } from 'lit/decorators.js'
+import { customElement, property } from 'lit/decorators.js'
 import type { GetUserReq, GetUserRsp } from '../../backend/api/get-user.api.js'
+import { globalStyles } from '../globalStyles.js'
+
+async function fetchUser(id: number) {
+  const params: GetUserReq = { data: { id } }
+
+  const rsp = await fetch('/api/get-user', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(params),
+  })
+
+  const json = (await rsp.json()) as GetUserRsp
+
+  if (json.status == 'ok') {
+    console.log({
+      status: rsp.status,
+      statusText: rsp.statusText,
+      headers: rsp.headers,
+      user: json.data.user,
+    })
+    return json.data.user
+  } else {
+    console.log({
+      status: rsp.status,
+      statusText: rsp.statusText,
+      headers: rsp.headers,
+      error: json.error,
+    })
+  }
+}
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -9,11 +39,22 @@ declare global {
   }
 }
 
+/**
+ * This is a root web component for whole application.
+ * @part main - styles `<main>` element
+ */
 @customElement('pp-app')
 export class PpApp extends LitElement {
-  // static styles = globalStyles
+  static styles = globalStyles
 
-  private router = new Router(this, [
+  // protected createRenderRoot(): HTMLElement | DocumentFragment {
+  //   return this
+  // }
+
+  @property({ type: Boolean })
+  test: boolean = false
+
+  private router: Router = new Router(this, [
     { path: '/', render: () => this.renderHero() },
     {
       path: '/newGame',
@@ -33,12 +74,12 @@ export class PpApp extends LitElement {
     },
   ])
 
-  protected createRenderRoot(): HTMLElement | DocumentFragment {
-    return this
-  }
-
   async onCreateRoom() {
     const user = await fetchUser(6)
+
+    const el = this.querySelector('pp-new-game')
+
+    console.log(el)
 
     if (user) {
       alert(`user: ${JSON.stringify(user, null, 2)}`)
@@ -68,7 +109,12 @@ export class PpApp extends LitElement {
 
   renderMain() {
     return html`
-      <main class="flex flex-1">${this.router.outlet()}</main>
+      <main
+        part="main"
+        class="flex flex-1"
+      >
+        ${this.router.outlet()}
+      </main>
     `
   }
 
@@ -249,34 +295,5 @@ export class PpApp extends LitElement {
 
   render() {
     return [this.renderNavbar(), this.renderMain(), this.renderFooter()]
-  }
-}
-
-async function fetchUser(id: number) {
-  const params: GetUserReq = { data: { id } }
-
-  const rsp = await fetch('/api/get-user', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(params),
-  })
-
-  const json = (await rsp.json()) as GetUserRsp
-
-  if (json.status == 'ok') {
-    console.log({
-      status: rsp.status,
-      statusText: rsp.statusText,
-      headers: rsp.headers,
-      user: json.data.user,
-    })
-    return json.data.user
-  } else {
-    console.log({
-      status: rsp.status,
-      statusText: rsp.statusText,
-      headers: rsp.headers,
-      error: json.error,
-    })
   }
 }

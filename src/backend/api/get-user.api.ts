@@ -26,7 +26,7 @@ getUserRouter.post('/api/get-user', async (req, res) => {
     res.json(rsp)
   } catch (error: any) {
     const response: GetUserRspErr = {
-      status: 'errror',
+      status: 'error',
       error: error instanceof Error ? error.message : error.toString(),
     }
     res.status(400).send(JSON.stringify(response))
@@ -44,7 +44,7 @@ const getUserRspOk = z.object({
 export type GetUserRspOk = z.infer<typeof getUserRspOk>
 
 const getUserRspErr = z.object({
-  status: z.literal('errror'),
+  status: z.literal('error'),
   error: z.string(),
 })
 

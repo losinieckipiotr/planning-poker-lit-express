@@ -1,5 +1,9 @@
 # Source materials
 
+Useful links about technologies used in project.
+
+## General
+
 - [README](https://github.com/othneildrew/Best-README-Template/tree/main)
 - [TypeScript](https://www.typescriptlang.org/)
 
@@ -9,7 +13,7 @@
 - [tailwindcss](https://tailwindcss.com/)
 - [Lit](https://lit.dev/)
 - [Prettier](https://prettier.io/)
-- [Flowbite](https://flowbite.com/) `not used now`
+- [Flowbite](https://flowbite.com/) not used now
 - [daisyUI](https://daisyui.com/)
 - [heroicons](https://heroicons.com/)
 - [Website Stylekit](https://websitestylekit.com/)

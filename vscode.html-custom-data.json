@@ -1,0 +1,18 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vscode-html-languageservice/main/docs/customData.schema.json",
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "pp-app",
+      "description": "This is a root web component for whole application.\n---\n\n\n### **CSS Parts:**\n - **main** - styles `<main>` element",
+      "attributes": [{ "name": "test", "values": [] }],
+      "references": []
+    },
+    {
+      "name": "pp-new-game",
+      "description": "\n---\n",
+      "attributes": [],
+      "references": []
+    }
+  ]
+}
