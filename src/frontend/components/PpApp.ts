@@ -63,7 +63,7 @@ export class PpApp extends LitElement {
         return true
       },
       render: () => html`
-        <pp-new-game class="flex flex-1 flex-col"></pp-new-game>
+        <pp-new-game class="flex flex-1 flex-col justify-center"></pp-new-game>
       `,
     },
     {

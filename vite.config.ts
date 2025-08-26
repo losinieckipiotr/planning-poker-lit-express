@@ -7,4 +7,5 @@ export default defineConfig({
   server: { proxy: { '/api': 'http://localhost:3000' }, open: true },
   plugins: [tailwindcss()],
   build: { outDir: '../../dist', emptyOutDir: true },
+  clearScreen: false,
 })
