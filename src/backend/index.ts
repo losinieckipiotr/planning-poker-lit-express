@@ -4,7 +4,7 @@ import morgan from 'morgan'
 import path from 'node:path'
 import { getUserRouter } from './api/get-user.api.ts'
 
-const DEV = process.env.NODE_ENV === 'development'
+// const DEV = process.env.NODE_ENV === 'development'
 
 const PORT = process.env.PORT
 
@@ -17,10 +17,8 @@ app.use(compression())
 
 app.use(getUserRouter)
 
-if (!DEV) {
-  const dist_path = path.join(path.dirname('../'), 'dist')
-  app.use(express.static(dist_path))
-}
+const dist_path = path.join(path.dirname('../'), 'dist')
+app.use(express.static(dist_path))
 
 app.use((_req, res, _next) => {
   const indexPath = path.resolve(

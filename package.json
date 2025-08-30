@@ -37,6 +37,7 @@
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.10.5",
     "@libsql/client": "^0.15.11",
+    "@lit-labs/rollup-plugin-minify-html-literals": "^0.1.0",
     "@tailwindcss/vite": "4.1.12",
     "@types/compression": "^1.8.1",
     "@types/express": "^5.0.3",

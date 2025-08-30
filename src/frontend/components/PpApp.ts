@@ -2,7 +2,7 @@ import { Router } from '@lit-labs/router'
 import { LitElement, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import type { GetUserReq, GetUserRsp } from '../../backend/api/get-user.api.js'
-import { globalStyles } from '../globalStyles.js'
+import './PpTheme.js'
 
 async function fetchUser(id: number) {
   const params: GetUserReq = { data: { id } }
@@ -45,17 +45,26 @@ declare global {
  */
 @customElement('pp-app')
 export class PpApp extends LitElement {
-  static styles = globalStyles
+  // static styles = globalStyles
 
-  // protected createRenderRoot(): HTMLElement | DocumentFragment {
-  //   return this
-  // }
+  protected createRenderRoot(): HTMLElement | DocumentFragment {
+    return this
+  }
 
   @property({ type: Boolean })
   test: boolean = false
 
   private router: Router = new Router(this, [
-    { path: '/', render: () => this.renderHero() },
+    {
+      path: '/',
+      render: () => html`
+        <pp-hero class="contents"></pp-hero>
+      `,
+      enter: async () => {
+        await import('./PpHero.js')
+        return true
+      },
+    },
     {
       path: '/newGame',
       enter: async () => {
@@ -63,7 +72,7 @@ export class PpApp extends LitElement {
         return true
       },
       render: () => html`
-        <pp-new-game class="flex flex-1 flex-col justify-center"></pp-new-game>
+        <pp-new-game class="contents"></pp-new-game>
       `,
     },
     {
@@ -84,38 +93,6 @@ export class PpApp extends LitElement {
     if (user) {
       alert(`user: ${JSON.stringify(user, null, 2)}`)
     }
-  }
-
-  renderHero() {
-    return html`
-      <div class="hero bg-base-200 p-4">
-        <div class="hero-content">
-          <div class="flex max-w-xl flex-col items-start">
-            <h1 class="text-5xl font-bold">
-              Scrum Poker application for agile teams
-            </h1>
-            <p class="py-6">Easy-to-use and fun estimations.</p>
-            <a
-              class="btn btn-primary"
-              href="/newGame"
-            >
-              Start game
-            </a>
-          </div>
-        </div>
-      </div>
-    `
-  }
-
-  renderMain() {
-    return html`
-      <main
-        part="main"
-        class="flex flex-1"
-      >
-        ${this.router.outlet()}
-      </main>
-    `
   }
 
   renderNavbar() {
@@ -188,41 +165,16 @@ export class PpApp extends LitElement {
             </ul>
           </div>
           <div class="navbar-end">
-            <button class="btn btn-ghost">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="size-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"
-                />
-              </svg>
-            </button>
-            <button class="btn btn-ghost">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="size-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
-                />
-              </svg>
-            </button>
+            <pp-theme class="block"></pp-theme>
           </div>
         </nav>
       </head>
+    `
+  }
+
+  renderMain() {
+    return html`
+      <main class="flex flex-1">${this.router.outlet()}</main>
     `
   }
 
