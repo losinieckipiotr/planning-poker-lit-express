@@ -1,6 +1,35 @@
 import { html, LitElement } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import { globalStyles } from '../globalStyles'
+import type { GetUserReq, GetUserRsp } from '../../backend/api/get-user.api.js'
+
+async function fetchUser(id: number) {
+  const params: GetUserReq = { data: { id } }
+
+  const rsp = await fetch('/api/get-user', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(params),
+  })
+
+  const json = (await rsp.json()) as GetUserRsp
+
+  if (json.status == 'ok') {
+    console.log({
+      status: rsp.status,
+      statusText: rsp.statusText,
+      headers: rsp.headers,
+      user: json.data.user,
+    })
+    return json.data.user
+  } else {
+    console.log({
+      status: rsp.status,
+      statusText: rsp.statusText,
+      headers: rsp.headers,
+      error: json.error,
+    })
+  }
+}
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -10,11 +39,19 @@ declare global {
 
 @customElement('pp-new-game')
 export class PpNewGame extends LitElement {
-  static styles = globalStyles
+  static styles = window.globalStyles
 
   // protected createRenderRoot(): HTMLElement | DocumentFragment {
   //   return this
   // }
+
+  async onCreateRoom() {
+    const user = await fetchUser(6)
+
+    if (user) {
+      alert(`user: ${JSON.stringify(user, null, 2)}`)
+    }
+  }
 
   protected render() {
     return html`
@@ -27,12 +64,14 @@ export class PpNewGame extends LitElement {
             id="star-game-form"
             class="w-full"
             @submit=${(event: SubmitEvent) => {
+              event.preventDefault()
+
               const form = event.currentTarget as HTMLFormElement
               const formData = Object.fromEntries(new FormData(form))
               console.log({ formData })
               // TODO: sent to backend
 
-              event.preventDefault()
+              this.onCreateRoom()
             }}
           >
             <div class="flex flex-col items-end gap-4">

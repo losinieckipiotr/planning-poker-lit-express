@@ -1,11 +1,7 @@
 import { html, LitElement } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import { globalStyles } from '../globalStyles'
-
-const LIGHT_THEME = 'corporate'
-const DARK_THEME = 'business-lp'
-const THEME_ATTRIBUTE = 'data-theme'
-type Theme = 'corporate' | 'business-lp'
+import { DARK_THEME, LIGHT_THEME, THEME_ATTRIBUTE } from '../enums.js'
+import type { Theme } from '../types.js'
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -15,7 +11,7 @@ declare global {
 
 @customElement('pp-theme')
 export class PpTheme extends LitElement {
-  static styles = globalStyles
+  static styles = window.globalStyles
 
   initialTheme: Theme = LIGHT_THEME
 
@@ -26,17 +22,12 @@ export class PpTheme extends LitElement {
   connectedCallback() {
     super.connectedCallback()
 
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)')
-    const savedTheme = localStorage.getItem(THEME_ATTRIBUTE) as Theme | null
-    const initialTheme =
-      savedTheme ? savedTheme
-      : prefersDarkScheme.matches ? DARK_THEME
-      : LIGHT_THEME
+    const initialTheme = this.rootEl.getAttribute(THEME_ATTRIBUTE)
 
-    if (!savedTheme) {
-      localStorage.setItem(THEME_ATTRIBUTE, initialTheme)
+    if (initialTheme != LIGHT_THEME && initialTheme != DARK_THEME) {
+      throw new Error('theme not set properly on startup')
     }
-    this.rootEl.setAttribute(THEME_ATTRIBUTE, initialTheme)
+
     this.initialTheme = initialTheme
   }
 

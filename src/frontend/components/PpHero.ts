@@ -1,6 +1,5 @@
 import { html, LitElement } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import { globalStyles } from '../globalStyles'
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -10,7 +9,7 @@ declare global {
 
 @customElement('pp-hero')
 export class PpHero extends LitElement {
-  static styles = globalStyles
+  static styles = window.globalStyles
 
   render() {
     return html`
