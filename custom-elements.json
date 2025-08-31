@@ -4,20 +4,56 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "src/frontend/globalStyles.ts",
+      "path": "src/frontend/enums.ts",
       "declarations": [
         {
           "kind": "variable",
-          "name": "globalStyles"
+          "name": "LIGHT_THEME",
+          "type": {
+            "text": "string"
+          },
+          "default": "'corporate'"
+        },
+        {
+          "kind": "variable",
+          "name": "DARK_THEME",
+          "type": {
+            "text": "string"
+          },
+          "default": "'business-lp'"
+        },
+        {
+          "kind": "variable",
+          "name": "THEME_ATTRIBUTE",
+          "type": {
+            "text": "string"
+          },
+          "default": "'data-theme'"
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "globalStyles",
+          "name": "LIGHT_THEME",
           "declaration": {
-            "name": "globalStyles",
-            "module": "src/frontend/globalStyles.ts"
+            "name": "LIGHT_THEME",
+            "module": "src/frontend/enums.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DARK_THEME",
+          "declaration": {
+            "name": "DARK_THEME",
+            "module": "src/frontend/enums.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "THEME_ATTRIBUTE",
+          "declaration": {
+            "name": "THEME_ATTRIBUTE",
+            "module": "src/frontend/enums.ts"
           }
         }
       ]
@@ -30,27 +66,94 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/frontend/initColorSchemes.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "initColorSchemes"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "initColorSchemes",
+          "declaration": {
+            "name": "initColorSchemes",
+            "module": "src/frontend/initColorSchemes.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/frontend/loadPolyfills.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "loadPollyfills"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "loadPollyfills",
+          "declaration": {
+            "name": "loadPollyfills",
+            "module": "src/frontend/loadPolyfills.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/frontend/loadStyleSheet.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "loadStyleSheet"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "loadStyleSheet",
+          "declaration": {
+            "name": "loadStyleSheet",
+            "module": "src/frontend/loadStyleSheet.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/frontend/types.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/frontend/components/PpApp.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "This is a root web component for whole application.",
           "name": "PpApp",
-          "cssParts": [
-            {
-              "description": "styles `<main>` element",
-              "name": "main"
-            }
-          ],
           "members": [
             {
               "kind": "field",
-              "name": "test",
+              "name": "navbarLoaded",
               "type": {
                 "text": "boolean"
               },
-              "default": "false",
-              "attribute": "test"
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "footerLoaded",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
             },
             {
               "kind": "field",
@@ -59,19 +162,15 @@
                 "text": "Router"
               },
               "privacy": "private",
-              "default": "new Router(this, [ { path: '/', render: () => this.renderHero() }, { path: '/newGame', enter: async () => { await import('./PpNewGame.js') return true }, render: () => html` <pp-new-game class=\"flex flex-1 flex-col\"></pp-new-game> `, }, { path: '/*', render: () => html` <h1>TODO: 404 page</h1> `, }, ])"
+              "default": "new Router(this, [ { path: '/', render: () => html` <pp-hero class=\"contents\"></pp-hero> `, enter: async () => { await import('./PpHero.js') return true }, }, { path: '/newGame', enter: async () => { await import('./PpNewGame.js') return true }, render: () => html` <pp-new-game class=\"contents\"></pp-new-game> `, }, { path: '/*', render: () => html` <h1>TODO: 404 page</h1> `, }, ])"
             },
             {
               "kind": "method",
-              "name": "onCreateRoom"
+              "name": "loadNavbar"
             },
             {
               "kind": "method",
-              "name": "renderHero"
-            },
-            {
-              "kind": "method",
-              "name": "renderMain"
+              "name": "loadFooter"
             },
             {
               "kind": "method",
@@ -79,17 +178,11 @@
             },
             {
               "kind": "method",
-              "name": "renderFooter"
-            }
-          ],
-          "attributes": [
+              "name": "renderMain"
+            },
             {
-              "name": "test",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "fieldName": "test"
+              "kind": "method",
+              "name": "renderFooter"
             }
           ],
           "superclass": {
@@ -121,13 +214,143 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/frontend/components/PpFooter.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "PpFooter",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "pp-footer",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PpFooter",
+          "declaration": {
+            "name": "PpFooter",
+            "module": "src/frontend/components/PpFooter.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "pp-footer",
+          "declaration": {
+            "name": "PpFooter",
+            "module": "src/frontend/components/PpFooter.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/frontend/components/PpHero.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "PpHero",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "pp-hero",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PpHero",
+          "declaration": {
+            "name": "PpHero",
+            "module": "src/frontend/components/PpHero.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "pp-hero",
+          "declaration": {
+            "name": "PpHero",
+            "module": "src/frontend/components/PpHero.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/frontend/components/PpNavbar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "PpNavbar",
+          "members": [
+            {
+              "kind": "method",
+              "name": "onLinkClick",
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "MouseEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderLinks"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "pp-navbar",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PpNavbar",
+          "declaration": {
+            "name": "PpNavbar",
+            "module": "src/frontend/components/PpNavbar.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "pp-navbar",
+          "declaration": {
+            "name": "PpNavbar",
+            "module": "src/frontend/components/PpNavbar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/frontend/components/PpNewGame.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
           "name": "PpNewGame",
-          "members": [],
+          "members": [
+            {
+              "kind": "method",
+              "name": "onCreateRoom"
+            }
+          ],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
@@ -151,6 +374,72 @@
           "declaration": {
             "name": "PpNewGame",
             "module": "src/frontend/components/PpNewGame.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/frontend/components/PpTheme.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "PpTheme",
+          "members": [
+            {
+              "kind": "field",
+              "name": "initialTheme",
+              "type": {
+                "text": "Theme"
+              },
+              "default": "LIGHT_THEME"
+            },
+            {
+              "kind": "field",
+              "name": "rootEl",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "isDark",
+              "parameters": [
+                {
+                  "name": "theme",
+                  "type": {
+                    "text": "Theme"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "onCheckboxChange"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "pp-theme",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PpTheme",
+          "declaration": {
+            "name": "PpTheme",
+            "module": "src/frontend/components/PpTheme.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "pp-theme",
+          "declaration": {
+            "name": "PpTheme",
+            "module": "src/frontend/components/PpTheme.ts"
           }
         }
       ]

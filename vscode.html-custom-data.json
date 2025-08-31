@@ -4,12 +4,36 @@
   "tags": [
     {
       "name": "pp-app",
-      "description": "This is a root web component for whole application.\n---\n\n\n### **CSS Parts:**\n - **main** - styles `<main>` element",
-      "attributes": [{ "name": "test", "values": [] }],
+      "description": "This is a root web component for whole application.\n---\n",
+      "attributes": [],
+      "references": []
+    },
+    {
+      "name": "pp-footer",
+      "description": "\n---\n",
+      "attributes": [],
+      "references": []
+    },
+    {
+      "name": "pp-hero",
+      "description": "\n---\n",
+      "attributes": [],
+      "references": []
+    },
+    {
+      "name": "pp-navbar",
+      "description": "\n---\n",
+      "attributes": [],
       "references": []
     },
     {
       "name": "pp-new-game",
+      "description": "\n---\n",
+      "attributes": [],
+      "references": []
+    },
+    {
+      "name": "pp-theme",
       "description": "\n---\n",
       "attributes": [],
       "references": []

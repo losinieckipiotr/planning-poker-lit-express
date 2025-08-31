@@ -14,5 +14,9 @@
     "editor.formatOnSave": true
   },
   "cSpell.words": ["litelement", "packagejson", "Stylekit"],
-  "css.customData": ["./vscode/tailwind.json"]
+  "css.customData": [
+    "vscode.css-custom-data-tailwind.json",
+    "vscode.css-custom-data.json"
+  ],
+  "html.customData": ["vscode.html-custom-data.json"]
 }

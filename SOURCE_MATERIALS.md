@@ -6,6 +6,7 @@ Useful links about technologies used in project.
 
 - [README](https://github.com/othneildrew/Best-README-Template/tree/main)
 - [TypeScript](https://www.typescriptlang.org/)
+- TODO: npm run all
 
 ## Fronted
 
@@ -20,6 +21,9 @@ Useful links about technologies used in project.
 - [Vite SSR](https://vite.dev/guide/ssr.html)
 - [Vite SSR Vanilla example](https://github.com/bluwy/create-vite-extra/blob/master/template-ssr-vanilla/index.html)
 - [@lit-labs/router](https://www.npmjs.com/package/@lit-labs/router)
+- TODO: ts-lit-plugin
+- TODO: custom-elements-manifest https://custom-elements-manifest.open-wc.org/analyzer/getting-started/
+- TODO: custom-element-vs-code-integration
 
 ## Backend
 

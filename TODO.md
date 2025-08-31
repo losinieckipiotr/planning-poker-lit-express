@@ -1,4 +1,5 @@
 # TODO
 
 - [ ] create packages folder and split frontend and backend again
-- [x] split pp-app component to reduce initial transfer size
+- [ ] create api package with type definitions / schemas for backend and
+      frontend?

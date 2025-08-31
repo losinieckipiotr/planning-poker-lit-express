@@ -10,7 +10,6 @@ declare global {
 
 /**
  * This is a root web component for whole application.
- * @part main - styles `<main>` element
  */
 @customElement('pp-app')
 export class PpApp extends LitElement {
