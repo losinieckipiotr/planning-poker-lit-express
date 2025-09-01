@@ -13,7 +13,7 @@
     "editor.wordWrap": "off",
     "editor.formatOnSave": true
   },
-  "cSpell.words": ["litelement", "packagejson", "Stylekit"],
+  "cSpell.words": ["litelement", "packagejson", "Stylekit", "urlpattern"],
   "css.customData": [
     "vscode.css-custom-data-tailwind.json",
     "vscode.css-custom-data.json"
