@@ -1,22 +1,15 @@
-export function loadStyleSheet() {
-  const link = document.querySelector<HTMLLinkElement>('[rel="stylesheet"]')
+import { unsafeCSS } from 'lit'
 
-  const ruleList = link!.sheet!.cssRules
-  const globalStyles = new CSSStyleSheet()
+export async function loadStyleSheet() {
+  const link = document.querySelector<HTMLLinkElement>('[rel="stylesheet"]')!
 
-  let cssTexts1: string[] = []
-  for (let i = 0; i < ruleList.length; i++) {
-    cssTexts1.push(ruleList[i].cssText)
-  }
+  const rsp = await fetch(link.href, {
+    headers: { accept: 'text/css' },
+    cache: 'force-cache',
+  })
+  const text = await rsp.text()
 
-  const allCss = cssTexts1.join(' ')
-  globalStyles.replace(allCss)
-
-  const ruleList2 = globalStyles.cssRules
-  let cssTexts2: string[] = []
-  for (let i = 0; i < ruleList2.length; i++) {
-    cssTexts2.push(ruleList[i].cssText)
-  }
+  const globalStyles = unsafeCSS(text)
 
   window.globalStyles = globalStyles
 }
