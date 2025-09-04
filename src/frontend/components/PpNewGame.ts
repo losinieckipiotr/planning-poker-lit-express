@@ -1,5 +1,5 @@
 import { html, LitElement } from 'lit'
-import { customElement, state } from 'lit/decorators.js'
+import { customElement } from 'lit/decorators.js'
 import type { GetUserReq, GetUserRsp } from '../../backend/api/get-user.api.js'
 
 async function fetchUser(id: number) {
@@ -41,16 +41,22 @@ declare global {
 export class PpNewGame extends LitElement {
   static styles = window.globalStyles
 
-  @state()
-  room: boolean = false
-
-  async onCreateRoom() {
+  async createRoom() {
     const user = await fetchUser(6)
 
-    if (user) {
-      console.log(`user: ${JSON.stringify(user, null, 2)}`)
-      this.room = true
+    if (!user) {
+      return
     }
+
+    console.log(`user: ${JSON.stringify(user, null, 2)}`)
+
+    this.dispatchEvent(
+      new CustomEvent<number>('go-to-room', {
+        detail: 69420,
+        bubbles: true,
+        composed: true,
+      }),
+    )
   }
 
   onSubmit(event: SubmitEvent) {
@@ -61,34 +67,17 @@ export class PpNewGame extends LitElement {
     console.log({ formData })
     // TODO: sent to backend
 
-    this.onCreateRoom()
+    this.createRoom()
   }
 
-  renderRoom() {
-    return html`
-      <div class="grid w-full place-items-center">
-        <div
-          class="bg-base-200 border-base-300 rounded-box border p-4 text-base"
-        >
-          <h1 class="text-2xl font-bold">Room 420 69</h1>
-          <p>QR code? useless</p>
-          <a class="link link-info block">
-            https://www.planning-poker-lit-express.pl/room/42069
-          </a>
-          <button class="btn-primary block">Copy to clipboard</button>
-        </div>
-      </div>
-    `
-  }
-
-  renderForm() {
+  render() {
     return html`
       <form
         @submit=${this.onSubmit}
         class="grid w-full place-items-center"
       >
         <fieldset
-          class="fieldset bg-base-200 border-base-300 rounded-box border p-4 text-base"
+          class="fieldset bg-base-200 border-base-300 rounded-box w-xl border p-4 text-base"
         >
           <legend class="fieldset-legend text-2xl font-bold">New game</legend>
           <p>To start a new game just enter a game name and let's play!</p>
@@ -100,7 +89,7 @@ export class PpNewGame extends LitElement {
             placeholder="Awesome team planning"
           />
           <ul
-            class="menu menu-horizontal rounded-box flex w-[61.803%] flex-row flex-nowrap gap-4 p-0"
+            class="menu menu-horizontal rounded-box flex w-1/2 flex-row flex-nowrap gap-4 p-0"
           >
             <li class="flex-1">
               <button
@@ -136,10 +125,5 @@ export class PpNewGame extends LitElement {
         </fieldset>
       </form>
     `
-  }
-
-  protected render() {
-    const { room } = this
-    return room ? this.renderRoom() : this.renderForm()
   }
 }

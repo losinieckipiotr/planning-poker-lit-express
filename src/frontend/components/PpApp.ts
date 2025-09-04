@@ -28,7 +28,7 @@ export class PpApp extends LitElement {
     this.loadFooter()
   }
 
-  private router: Router = new Router(this, [
+  router: Router = new Router(this, [
     {
       path: '/',
       render: () => html`
@@ -46,13 +46,42 @@ export class PpApp extends LitElement {
         return true
       },
       render: () => html`
-        <pp-new-game class="contents"></pp-new-game>
+        <pp-new-game
+          @go-to-room=${(event: CustomEvent<number>) => {
+            const roomId = event.detail
+            console.log('go-to-room event', { roomId })
+            // window.history.back()
+            // window.history.replaceState({}, '', `room/${roomId}`)
+            window.history.pushState({}, '', `room/${roomId}`)
+            this.router.goto(`/room/${roomId}`)
+          }}
+          class="contents"
+        ></pp-new-game>
       `,
+    },
+    {
+      path: '/room/:roomId',
+      enter: async () => {
+        await import('./PPRoom.js')
+        return true
+      },
+      render: ({ roomId }) => {
+        const roomIdNum = parseInt(roomId || '0')
+        console.log('render pp-room component', { roomId, roomIdNum })
+        return html`
+          <pp-room
+            .roomId=${roomIdNum}
+            class="contents"
+          ></pp-room>
+        `
+      },
     },
     {
       path: '/*',
       render: () => html`
-        <h1>TODO: 404 page</h1>
+        <div class="bg-accent grid w-full place-items-center">
+          <h1 class="text-4xl font-bold">WTF</h1>
+        </div>
       `,
     },
   ])
@@ -79,8 +108,12 @@ export class PpApp extends LitElement {
 
   renderMain() {
     // TODO: fix height, topbar and navbar now are absolute
+
+    const outlet = this.router.outlet()
+    // console.log({ outlet })
+
     return html`
-      <main class="flex flex-1">${this.router.outlet()}</main>
+      <main class="flex flex-1">${outlet}</main>
     `
   }
 
